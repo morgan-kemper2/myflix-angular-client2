@@ -5,6 +5,8 @@ import { UserRegistrationService } from '../fetch-api-data.service';
 
 // This import is used to display notifications back to the user
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-user-registration-form',
@@ -18,7 +20,8 @@ export class UserRegistrationFormComponent implements OnInit {
 constructor(
     public fetchApiData: UserRegistrationService,
     public dialogRef: MatDialogRef<UserRegistrationFormComponent>,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,
+    public router: Router) { }
 
 ngOnInit(): void {
 }
