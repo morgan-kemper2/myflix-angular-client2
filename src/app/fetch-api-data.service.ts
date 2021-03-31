@@ -15,6 +15,8 @@ export class FetchApiDataService {
 
 //Declaring the api url that will provide data for the client app
 const apiUrl = 'https://findamovieflix.herokuapp.com/';
+
+// register user
 @Injectable({
   providedIn: 'root'
 })
@@ -25,7 +27,8 @@ export class UserRegistrationService {
  // Making the api call for the user registration endpoint
   public userRegistration(userDetails: any): Observable<any> {
     console.log(userDetails);
-    return this.http.post(apiUrl + 'users', userDetails).pipe(
+    return this.http.post(apiUrl + 'users', userDetails)
+    .pipe(
     catchError(this.handleError)
     );
   }
@@ -43,16 +46,16 @@ private handleError(error: HttpErrorResponse): any {
   }
 }
 
+// user login
 @Injectable ({
   providedIn: 'root',
 })
-export class UserLoginService {
+export class LoginUserService {
   constructor(private http: HttpClient) {}
 
   public userLogin(userDetails: any): Observable<any> {
     console.log(userDetails);
-    return this.http
-    .post(apiUrl + 'login', userDetails)
+    return this.http.post(apiUrl + 'login', userDetails)
     .pipe(catchError(this.handleError));
   }
   private handleError(error: HttpErrorResponse):any {
@@ -68,6 +71,7 @@ export class UserLoginService {
   }
 }
 
+// get all movies
 @Injectable({
   providedIn: 'root',
 })
@@ -103,6 +107,7 @@ export class GetAllMoviesService {
   }
 }
 
+// get movie by title
 @Injectable({
   providedIn: 'root',
 })
@@ -137,6 +142,7 @@ export class GetOneMovieService {
   }
 }
 
+// get director
 @Injectable({
   providedIn: 'root',
 })
@@ -145,7 +151,7 @@ export class GetDirectorService {
 
   getDirector(): Observable <any> {
     const token = localStorage.getItem('token');
-    return this.http.get(apiUrl + 'movies/directors/:Name', {headers: new HttpHeaders (
+    return this.http.get(apiUrl + 'movies/director/:Name', {headers: new HttpHeaders (
       {
         Authorization: 'Bearer' + token,
       }
@@ -171,6 +177,7 @@ export class GetDirectorService {
   }
 }
 
+// get genre
 @Injectable({
   providedIn: 'root',
 })
@@ -205,10 +212,11 @@ export class GetGenreService {
   }
 }
 
+// get users
 @Injectable({
   providedIn: 'root',
 })
-export class GetUserService {
+export class GetUsersService {
   constructor(private http: HttpClient) {}
 
   getUser(): Observable <any> {
@@ -241,6 +249,7 @@ export class GetUserService {
   }
 }
 
+// get favorite movies
 @Injectable({
   providedIn: 'root',
 })
@@ -277,6 +286,7 @@ export class GetFavoritesService {
   }
 }
 
+// add a favorite movie
 @Injectable({
   providedIn: 'root',
 })
@@ -313,10 +323,11 @@ export class AddFavoritesService {
   }
 }
 
+// update user
 @Injectable({
   providedIn: 'root',
 })
-export class EditUserService {
+export class UpdateUserService {
   constructor(private http: HttpClient) {}
 
   updateUser(userDetails:any): Observable <any> {
@@ -349,6 +360,7 @@ export class EditUserService {
   }
 }
 
+// delete user
 @Injectable({
   providedIn: 'root',
 })
@@ -385,6 +397,7 @@ export class DeleteUserService {
   }
 }
 
+// remove favorite movie
 @Injectable({
   providedIn: 'root',
 })
