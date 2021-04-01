@@ -1,1 +1,18 @@
-<p>director-details works!</p>
+<!-- 
+This component displays the information in a readable format with a pop up 
+model that displays name, bio, dob and dod
+that can be closed by clicking the 'x' 
+ -->
+
+
+<div class="director-details">
+    <div class="close-icon-container">
+        <button mat-icon-button class="close-icon" color="basic" [mat-dialog-close]="true">
+            <mat-icon>X</mat-icon>
+        </button>
+    </div>
+    <h1>{{data.name}}</h1>
+    <p>{{data.bio}}</p>
+    <p>Born: {{data.birth}}</p>
+    <p>Died: {{data.death}}</p>
+</div>

@@ -1,1 +1,15 @@
-<p>movie-details works!</p>
+<!-- this componenent displays a box with all of the movie details inside -->
+
+<div class="movie-details">
+    <div class="close-icon-container">
+        <button mat-icon-button class="close-icon" color="basic" [mat-dialog-close]="true">
+            <mat-icon>X</mat-icon>
+        </button>
+    </div>
+    <h1>{{data.name}}</h1>
+    <img src={{data.imageurl}} alt={{data.name}} width="265px" />
+    <p>{{data.description}}</p>
+    <p>Directed by: {{data.director}}</p>
+    <p>Genre: {{data.genre}}</p>
+
+</div>

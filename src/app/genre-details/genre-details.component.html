@@ -1,1 +1,15 @@
-<p>genre-details works!</p>
+<!-- 
+This component displays the information in a readable format with a pop up 
+model that displays name and description
+that can be closed by clicking the 'x' 
+ -->
+
+<div class="director-dialog">
+    <div class="close-icon-container">
+        <button mat-icon-button class="close-icon" color="basic" [mat-dialog-close]="true">
+            <mat-icon>X</mat-icon>
+        </button>
+    </div>
+    <h1>{{data.name}}</h1>
+    <p>{{data.description}}</p>
+</div>

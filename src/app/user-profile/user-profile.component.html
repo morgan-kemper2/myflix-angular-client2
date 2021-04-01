@@ -1,1 +1,56 @@
-<p>user-profile works!</p>
+<!-- this componenent will display a user profile with a favorite movie container -->
+
+<div class="body">
+    <div class="user-profile">
+        <mat-card class="profile-info">
+            <mat-card-header>
+                <mat-card-title class="your-info">
+                    Your Profile Info:
+                </mat-card-title>
+            </mat-card-header>
+            <hr>
+            <mat-card-content>
+                Username: {{ user.Username }}
+            </mat-card-content>
+            <mat-card-content>
+                Password: ********
+            </mat-card-content>
+            <mat-card-content>
+                Email: {{ user.Email }}
+            </mat-card-content>
+            <mat-card-content>
+                Birthday: {{ user.Birthday | date : 'MM/dd/yyyy' : 'UTC' }}
+            </mat-card-content>
+            <mat-card-actions>
+                <div class="profile-buttons">
+                    <button class="update-profile" mat-raised-button color="basic" (click)="openUpdateProfileDialog()">
+                        Update Profile
+                    </button>
+                    <button class="delete-profile" mat-raised-button color="warn" (click)="deleteProfile()">
+                        Delete Profile
+                    </button>
+                </div>
+            </mat-card-actions>
+        </mat-card>
+
+    </div>
+    <div class="favorites-container">
+        <div class="title-container">
+            <mat-card-title class="title">Your Favorite Movies:</mat-card-title>
+        </div>
+        <div class="favorite-cards">
+            <mat-card class="favorite" *ngFor="let favorite of favorites;">
+                <img src={{favorite.ImageUrl}} alt={{favorite.Name}} />
+                <div class="favorite-title">
+                    <mat-card-title>{{favorite.Name}}</mat-card-title>
+                </div>
+                <div class="remove-favorite">
+                    <button class="remove-button" mat-button color="basic"
+                        (click)="removeFromFavorites(favorite._id, favorite.Title)">
+                        Remove From favorites
+                    </button>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
