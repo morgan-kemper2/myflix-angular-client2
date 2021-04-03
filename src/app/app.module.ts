@@ -25,6 +25,7 @@ import { UpdateUserProfileComponent } from './update-user-profile/update-user-pr
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { GenreDetailsComponent } from './genre-details/genre-details.component';
 import { DirectorDetailsComponent } from './director-details/director-details.component';
+import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 
 
 
@@ -47,6 +48,7 @@ const appRoutes: Routes = [
     MovieDetailsComponent,
     GenreDetailsComponent,
     DirectorDetailsComponent,
+    NavigationBarComponent,
   ],
   imports: [
     BrowserModule,
