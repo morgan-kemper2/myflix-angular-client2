@@ -40,8 +40,6 @@ export class UpdateUserProfileComponent implements OnInit {
         duration: 2000,
       });
     });
-    setTimeout(function () {
-      window.location.reload();
-    }, 1250);
   }
 }
+

@@ -10,16 +10,13 @@
             </mat-card-header>
             <hr>
             <mat-card-content>
-                Username: {{ user.Username }}
+                Username: {{ userData.Username }}
             </mat-card-content>
             <mat-card-content>
                 Password: ********
             </mat-card-content>
             <mat-card-content>
-                Email: {{ user.Email }}
-            </mat-card-content>
-            <mat-card-content>
-                Birthday: {{ user.Birthday | date : 'MM/dd/yyyy' : 'UTC' }}
+                Email: {{ userData.Email }}
             </mat-card-content>
             <mat-card-actions>
                 <div class="profile-buttons">
@@ -46,7 +43,7 @@
                 </div>
                 <div class="remove-favorite">
                     <button class="remove-button" mat-button color="basic"
-                        (click)="removeFromFavorites(favorite._id, favorite.Title)">
+                        (click)="removeFromFavorites(favorite._id, favorite.Name)">
                         Remove From favorites
                     </button>
                 </div>

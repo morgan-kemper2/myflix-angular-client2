@@ -1,0 +1,27 @@
+.card {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+    text-align: center;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.mat-card {
+background-color:adjust-hue($color: #0000009f, $degrees: 0);
+color: white;
+text-align: center;
+}
+
+.mat-card-header {
+    text-align: center;
+}
+
+.mat-card-title {
+    text-align: center;
+}
+
+.img {
+    text-align: center;
+}
+

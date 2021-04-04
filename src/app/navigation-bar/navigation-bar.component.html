@@ -1,8 +1,7 @@
-
+<a routerLink='/movies' class="nav-title">myMovieFlix</a>
 <div class="nav">
     <div class="container">
         <div class="nav-home"> 
-            <h1 class="nav-title">myMovieFlix</h1>
             <button 
                 mat-icon-button 
                 routerLink="/movies" 
@@ -14,6 +13,7 @@
         <div class="buttons">
             <button 
             mat-raised-button
+            color='primary'
             class="profile"
             routerLink="/profile"
             >
@@ -21,6 +21,7 @@
         </button>
             <button
             mat-raised-button
+            color='primary'
             class="logout"
             routerLink="/"
             (click)="logoutUser()"
