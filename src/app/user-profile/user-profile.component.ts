@@ -1,12 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { 
-        GetUsersService, 
-        GetAllMoviesService, 
-        RemoveFavoritesService, 
-        DeleteUserService, 
-        GetFavoritesService,
-        UpdateUserService
-        } from '../fetch-api-data.service';
+  GetUsersService,
+  GetAllMoviesService,
+  RemoveFavoritesService,
+  DeleteUserService
+} from '../fetch-api-data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateUserProfileComponent } from '../update-user-profile/update-user-profile.component';
@@ -18,81 +16,99 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-  user: any={};
-  movies: any = {};
+  user: any = {};
+  movies: any = [];
   favorites: any = [];
 
   constructor(
-    public fetchApiDataUser: GetUsersService,
-    public fetchApiDataAll: GetAllMoviesService,
-    public fetchApiDataDeleteUser: DeleteUserService,
-    public fetchApiDataRemFav: RemoveFavoritesService,
-    public fetchApiDataGetFav: GetFavoritesService,
-    public fetchApiDataUpdate: UpdateUserService,
+    public fetchApiData: GetUsersService,
+    public fetchApiData2: GetAllMoviesService,
+    public fetchApiData3: RemoveFavoritesService,
+    public fetchApiData4: DeleteUserService,
     public snackBar: MatSnackBar,
     public dialog: MatDialog,
     public router: Router
   ) { }
 
+  /**
+   * Runs the getUser() function on initialization
+   */
   ngOnInit(): void {
     this.getUser();
   }
 
+  /**
+   * Gets the user object from the database and calls the getMovies() function
+   */
   getUser(): void {
-    this.fetchApiDataUser.getUser().subscribe((resp: any) => {
+    this.fetchApiData.getUser().subscribe((resp: any) => {
       this.user = resp;
       this.getMovies();
     });
   }
-  
-  // get all movies
+
+  /**
+   * Returns a list of all movies from the database and calls the filterFavorites() function
+   */
   getMovies(): void {
-    this.fetchApiDataAll.getAllMovies().subscribe((resp: any) => {
+    this.fetchApiData2.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
+      this.filterFavorites();
     });
   }
 
-  getFavorites(id:string): void {
-    this.fetchApiDataGetFav.getFavorites(id).subscribe((resp:any)=> {
-      this.favorites = resp;
-    })
+  /**
+   * Filters the list of all movies into an array that matches user favorites
+   * @returns {array}
+   */
+  filterFavorites(): void {
+    this.favorites = this.movies.filter((movie: any) =>
+      this.user.FavoriteMovies.includes(movie._id)
+    );
+    return this.favorites;
   }
- 
 
-  // remove a favorite movie
-  removeFromFavorites(id: string, name: string): void {
-    this.fetchApiDataRemFav.removeFavorites(id).subscribe(() => {
+  /**
+   * Removes movie(s) from the users favorites list and refreshes the window automatically to show changes
+   * @param id 
+   * @param title 
+   */
+  removeFromFavorites(id: string, title: string): void {
+    this.fetchApiData3.removeFavorites(id).subscribe(() => {
       this.snackBar.open(
-        `${name} has been removed from your Favorites`, 'OK', {
-        duration: 2000,
-      }
+        `${title} has been removed from your Favorites`, 'OK', {
+          duration: 2000,
+        }
       );
-      setTimeout(function () {
+      setTimeout(function() {
         window.location.reload();
       }, 1000);
     });
   }
 
-  // creates a dialog box to update the user profile
+  /**
+   * Opens the dialog box where the user can update their information
+   */
   openUpdateProfileDialog(): void {
     this.dialog.open(UpdateUserProfileComponent, {
       width: '280px',
     });
   }
 
-
-  // delete profile
+  /**
+   * This will ask the user to confirm that they want to delete their profile.  If they click "confirm" their profile will be deleted and they will be returned to the welcome view.  If they click "cancel" the alert disappears and the window is reloaded.
+   */
   deleteProfile(): void {
     let ok = confirm("Are you sure you want to delete your profile?\nThis action cannot be undone.");
     if (ok) {
-      this.fetchApiDataDeleteUser.deleteUser().subscribe(() => {
-        console.log('Profile Deleted');
-        localStorage.clear();
-        this.router.navigate(['welcome']);
-        this.snackBar.open('Profile Deleted', 'OK', {
-          duration: 2000,
-        });
+    this.fetchApiData4.deleteUser().subscribe(() => {
+      console.log('Profile Deleted');
+      localStorage.clear();
+      this.router.navigate(['welcome']); // routes to the 'welcome' view
+      this.snackBar.open('Profile Deleted', 'OK', {
+        duration: 2000,
       });
+    });
     } else {
       window.location.reload();
     }

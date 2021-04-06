@@ -1,0 +1,42 @@
+.favorites-container {
+    padding:10px;
+    background-color:adjust-hue($color: #0000009f, $degrees: 0);
+    margin-top: 30px;
+    color:white;
+    float: right;
+    margin-right: 20px;
+}
+
+.favorite-cards {
+    display:grid;
+    grid-gap:20px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+
+.your-info {
+    font-size: 40px;
+}
+
+.profile-info {
+    background-color:adjust-hue($color: #000000ce, $degrees: 0);
+    color: white;
+}
+
+.favorite {
+    background-color:adjust-hue($color: #0000009f, $degrees: 0);
+    color: white;
+    
+}
+
+.mat-card-content {
+    font-size: 20px;
+    padding: 10px;
+}
+
+.user-profile {
+    float:left;
+    padding:30px;
+    margin-left: 20px;
+}
+

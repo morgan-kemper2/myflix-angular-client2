@@ -118,7 +118,7 @@ export class GetOneMovieService {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'movies/:Name', {headers: new HttpHeaders(
       {
-        Authorization: 'Bearer' + token,
+        Authorization: 'Bearer ' + token,
       })
     }).pipe(
       map(this.extractResponseData),
@@ -153,7 +153,7 @@ export class GetDirectorService {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'movies/director/:Name', {headers: new HttpHeaders (
       {
-        Authorization: 'Bearer' + token,
+        Authorization: 'Bearer ' + token,
       }
     )}).pipe(
       map(this.extractResponseData),
@@ -188,7 +188,7 @@ export class GetGenreService {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'movies/genre/:Name', {headers: new HttpHeaders (
       {
-        Authorization: 'Bearer' + token,
+        Authorization: 'Bearer ' + token,
       }
     )}).pipe(
       map(this.extractResponseData),
@@ -223,15 +223,16 @@ export class GetUsersService {
     const token = localStorage.getItem('token');
     const user = localStorage.getItem('user');
 
-    return this.http.get(apiUrl + `user/${user}`, {headers: new HttpHeaders (
+    return this.http.get(apiUrl + `users/${user}`, {headers: new HttpHeaders (
       {
-        Authorization: 'Bearer' + token,
+        Authorization: 'Bearer ' + token,
       }
     )}).pipe(
       map(this.extractResponseData),
       catchError(this.handleError)
     )
   }
+
   private extractResponseData(res: Response | Object): any {
     const body = res;
     return body || { };
@@ -262,7 +263,7 @@ export class GetFavoritesService {
 
     return this.http.get(apiUrl + `users/${user}/movies/${id}`, {headers: new HttpHeaders (
       {
-        Authorization: 'Bearer' + token,
+        Authorization: 'Bearer ' + token,
       }
     )}).pipe(
       map(this.extractResponseData),
@@ -299,7 +300,7 @@ export class AddFavoritesService {
 
     return this.http.post(apiUrl + `users/${user}/movies/${id}`, id, {headers: new HttpHeaders (
       {
-        Authorization: 'Bearer' + token,
+        Authorization: 'Bearer ' + token,
       }
     )}).pipe(
       map(this.extractResponseData),
@@ -334,9 +335,9 @@ export class UpdateUserService {
     const token = localStorage.getItem('token');
     const user = localStorage.getItem('user');
 
-    return this.http.put(apiUrl + `user/${user}`, userDetails, {headers: new HttpHeaders (
+    return this.http.put(apiUrl + `users/${user}`, userDetails, {headers: new HttpHeaders (
       {
-        Authorization: 'Bearer' + token,
+        Authorization: 'Bearer ' + token,
       }
     )}).pipe(
       map(this.extractResponseData),
@@ -367,19 +368,32 @@ export class UpdateUserService {
 export class DeleteUserService {
   constructor(private http: HttpClient) {}
 
-  deleteUser(): Observable <any> {
-    const token = localStorage.getItem('token');
-    const user = localStorage.getItem('user');
+  // deleteUser(): Observable <any> {
+  //   const token = localStorage.getItem('token');
+  //   const user = localStorage.getItem('user');
 
-    return this.http.delete(apiUrl + `users/${user}`, {headers: new HttpHeaders (
-      {
-        Authorization: 'Bearer' + token,
-      }
-    )}).pipe(
-      map(this.extractResponseData),
-      catchError(this.handleError)
-    )
+  //   return this.http.delete(apiUrl + `users/${user}`, {headers: new HttpHeaders (
+  //     {
+  //       Authorization: 'Bearer ' + token,
+  //     }
+  //   )}).pipe(
+  //     map(this.extractResponseData),
+  //     catchError(this.handleError)
+  //   )
+  // }
+  deleteUser(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const username = localStorage.getItem('user');
+    return this.http.delete(`${apiUrl}users/${username}`, {
+      headers: new HttpHeaders ({
+        Authorization: 'Bearer ' + token,
+      }),
+      responseType: 'text', // without this line HttpErrorResponse will throw 'unkown identifier' error!
+    }).pipe(map(this.extractResponseData),
+    catchError(this.handleError)
+    );
   }
+  
   private extractResponseData(res: Response | Object): any {
     const body = res;
     return body || { };
@@ -410,7 +424,7 @@ export class RemoveFavoritesService {
 
     return this.http.delete(apiUrl + `users/${user}/movies/${id}`, {headers: new HttpHeaders (
       {
-        Authorization: 'Bearer' + token,
+        Authorization: 'Bearer ' + token,
       }
     )}).pipe(
       map(this.extractResponseData),
